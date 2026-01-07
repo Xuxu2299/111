@@ -1,0 +1,214 @@
+rule-providers:
+  🏠 内网:
+    type: http
+    behavior: classic
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml"
+    path: ./ruleset/lan.yaml
+    interval: 86400
+  🎯 全球直连-内网段:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list"
+    path: ./ruleset/local_area_network.yaml
+    interval: 86400
+  🎯 全球直连-解禁:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list"
+    path: ./ruleset/unban.yaml
+    interval: 86400
+  🛑 全球拦截-广告:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list"
+    path: ./ruleset/ban_ad.yaml
+    interval: 86400
+  🍃 应用净化-程序广告:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list"
+    path: ./ruleset/ban_program_ad.yaml
+    interval: 86400
+  📢 谷歌FCM:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list"
+    path: ./ruleset/google_fcm.yaml
+    interval: 86400
+  🎯 全球直连-谷歌中国:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list"
+    path: ./ruleset/google_cn.yaml
+    interval: 86400
+  🎯 全球直连-steam中国:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list"
+    path: ./ruleset/steam_cn.yaml
+    interval: 86400
+  Ⓜ️ 微软服务:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list"
+    path: ./ruleset/microsoft.yaml
+    interval: 86400
+  🍎 苹果服务:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list"
+    path: ./ruleset/apple.yaml
+    interval: 86400
+  📲 电报信息:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list"
+    path: ./ruleset/telegram.yaml
+    interval: 86400
+  🌍 国外媒体:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list"
+    path: ./ruleset/proxy_media.yaml
+    interval: 86400
+  🚀 节点选择-规则:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list"
+    path: ./ruleset/proxy_lite.yaml
+    interval: 86400
+  🎯 全球直连-中国域名:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list"
+    path: ./ruleset/china_domain.yaml
+    interval: 86400
+  🎯 全球直连-中国企业IP:
+    type: http
+    behavior: ipcidr
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list"
+    path: ./ruleset/china_company_ip.yaml
+    interval: 86400
+# 代理分组配置
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+proxies:
+proxy-groups:
+  # 🏠 内网
+  - name: 🏠 内网
+    type: select
+    proxies:
+      - DIRECT
+      - "*"  # 匹配所有节点
+
+  # ♻️ 自动选择 (url-test 自动测速)
+  - name: ♻️ 自动选择
+    type: url-test
+    proxies:
+      - "*"  # 所有节点
+    filter: "^(?!.*GoHomeEasy).*"  # 排除包含GoHomeEasy的节点
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+  # 🚀 节点选择
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ♻️ 自动选择
+      - DIRECT
+      - "*"  # 所有节点
+
+  # 🌍 国外媒体
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🎯 全球直连
+      - "*"  # 所有节点
+
+  # 📲 电报信息
+  - name: 📲 电报信息
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 全球直连
+      - "*"  # 所有节点
+
+  # Ⓜ️ 微软服务
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🚀 节点选择
+      - "*"  # 所有节点
+
+  # 🍎 苹果服务
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 全球直连
+      - "*"  # 所有节点
+
+  # 📢 谷歌FCM
+  - name: 📢 谷歌FCM
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 全球直连
+      - ♻️ 自动选择
+      - "*"  # 所有节点
+
+  # 🎯 全球直连
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+
+  # 🛑 全球拦截
+  - name: 🛑 全球拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  # 🍃 应用净化
+  - name: 🍃 应用净化
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  # 🐟 漏网之鱼
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 全球直连
+      - ♻️ 自动选择
+      - "*"  # 所有节点
+# 规则匹配
+rules:
+  - RULE-SET,🏠 内网,🏠 内网
+  - RULE-SET,🎯 全球直连-内网段,🎯 全球直连
+  - RULE-SET,🎯 全球直连-解禁,🎯 全球直连
+  - RULE-SET,🛑 全球拦截-广告,🛑 全球拦截
+  - RULE-SET,🍃 应用净化-程序广告,🍃 应用净化
+  - RULE-SET,📢 谷歌FCM,📢 谷歌FCM
+  - RULE-SET,🎯 全球直连-谷歌中国,🎯 全球直连
+  - RULE-SET,🎯 全球直连-steam中国,🎯 全球直连
+  - RULE-SET,Ⓜ️ 微软服务,Ⓜ️ 微软服务
+  - RULE-SET,🍎 苹果服务,🍎 苹果服务
+  - RULE-SET,📲 电报信息,📲 电报信息
+  - RULE-SET,🌍 国外媒体,🌍 国外媒体
+  - RULE-SET,🚀 节点选择-规则,🚀 节点选择
+  - RULE-SET,🎯 全球直连-中国域名,🎯 全球直连
+  - RULE-SET,🎯 全球直连-中国企业IP,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
