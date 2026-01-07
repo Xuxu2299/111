@@ -1,0 +1,297 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "route": {
+    "rule_set": [
+      {
+        "tag": "lan",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "local_area_network",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "unban",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "ban_ad",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "ban_program_ad",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "google_fcm",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "google_cn",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "steam_cn",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "microsoft",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "apple",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "telegram",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "proxy_media",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "proxy_lite",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "china_domain",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list",
+        "format": "clash",
+        "interval": 86400
+      },
+      {
+        "tag": "china_company_ip",
+        "type": "http",
+        "url": "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list",
+        "format": "clash",
+        "interval": 86400
+      }
+    ],
+    "rules": [
+      // 🏠 内网
+      {
+        "rule_set": "lan",
+        "outbound": "lan"
+      },
+      // 🛑 全球拦截
+      {
+        "rule_set": "ban_ad",
+        "outbound": "block"
+      },
+      // 🍃 应用净化
+      {
+        "rule_set": "ban_program_ad",
+        "outbound": "block"
+      },
+      // 📢 谷歌FCM
+      {
+        "rule_set": "google_fcm",
+        "outbound": "google_fcm"
+      },
+      // 🎯 全球直连 - GoogleCN
+      {
+        "rule_set": "google_cn",
+        "outbound": "direct"
+      },
+      // 🎯 全球直连 - SteamCN
+      {
+        "rule_set": "steam_cn",
+        "outbound": "direct"
+      },
+      // Ⓜ️ 微软服务
+      {
+        "rule_set": "microsoft",
+        "outbound": "microsoft"
+      },
+      // 🍎 苹果服务
+      {
+        "rule_set": "apple",
+        "outbound": "apple"
+      },
+      // 📲 电报信息
+      {
+        "rule_set": "telegram",
+        "outbound": "telegram"
+      },
+      // 🌍 国外媒体
+      {
+        "rule_set": "proxy_media",
+        "outbound": "proxy_media"
+      },
+      // 🚀 节点选择
+      {
+        "rule_set": "proxy_lite",
+        "outbound": "proxy_select"
+      },
+      // 🎯 全球直连 - 中国域名
+      {
+        "rule_set": "china_domain",
+        "outbound": "direct"
+      },
+      // 🎯 全球直连 - 中国企业IP
+      {
+        "rule_set": "china_company_ip",
+        "outbound": "direct"
+      },
+      // 🎯 全球直连 - 中国IP
+      {
+        "geoip": "cn",
+        "outbound": "direct"
+      },
+      // 🎯 全球直连 - 内网IP
+      {
+        "rule_set": "local_area_network",
+        "outbound": "direct"
+      },
+      // 🎯 全球直连 - 解禁列表
+      {
+        "rule_set": "unban",
+        "outbound": "direct"
+      },
+      // 🐟 漏网之鱼
+      {
+        "match": "all",
+        "outbound": "proxy_select"
+      }
+    ],
+    "final": "proxy_select",
+    "auto_detect_interface": true
+  },
+  "outbounds": [
+    // 基础出站
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "block",
+      "type": "block"
+    },
+    {
+      "tag": "lan",
+      "type": "direct"
+    },
+    // 自动选择（对应Clash的url-test）
+    {
+      "tag": "auto_select",
+      "type": "selector",
+      "outbounds": [
+        // 排除GoHomeEasy节点，匹配^(?!.*GoHomeEasy).*
+        "proxy1", "proxy2", "proxy3" // 替换为你的实际节点tag
+      ],
+      "selector": {
+        "type": "url-test",
+        "url": "http://www.gstatic.com/generate_204",
+        "interval": 300,
+        "tolerance": 50
+      }
+    },
+    // 节点选择（手动选择）
+    {
+      "tag": "proxy_select",
+      "type": "selector",
+      "outbounds": [
+        "auto_select",
+        "direct",
+        "proxy1", "proxy2", "proxy3" // 替换为你的实际节点tag
+      ]
+    },
+    // 微软服务分流
+    {
+      "tag": "microsoft",
+      "type": "selector",
+      "outbounds": [
+        "direct",
+        "proxy_select"
+      ]
+    },
+    // 苹果服务分流
+    {
+      "tag": "apple",
+      "type": "selector",
+      "outbounds": [
+        "proxy_select",
+        "direct"
+      ]
+    },
+    // 谷歌FCM分流
+    {
+      "tag": "google_fcm",
+      "type": "selector",
+      "outbounds": [
+        "proxy_select",
+        "direct",
+        "auto_select"
+      ]
+    },
+    // 国外媒体分流
+    {
+      "tag": "proxy_media",
+      "type": "selector",
+      "outbounds": [
+        "proxy_select",
+        "auto_select",
+        "direct"
+      ]
+    },
+    // 电报信息分流
+    {
+      "tag": "telegram",
+      "type": "selector",
+      "outbounds": [
+        "proxy_select",
+        "direct"
+      ]
+    }
+  ],
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db"
+    }
+  }
+}
